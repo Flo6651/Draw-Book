@@ -92,12 +92,13 @@ function touchStarted() {
 //Use:		called by p5 when mouse is released or the touchscreen is released
 //					finalizes the object to draw and put it onto the stack
 function touchEnded(){
-  if(!currentdraw.isfinal){				// checks if the current drawable is already finalized
-  currentdraw.final(mouseX,mouseY);	//finalizes the current drawable
-  drawing=false;										//sets the drawing to false
-  drawables.push(currentdraw);			// pushes the current drawable onto the stack
-  drawsDisplay();										//Updates the drawables shown in the gui
-  selected="new";										//Selects a new drawable as the selected
+  if(!currentdraw.isfinal){						// checks if the current drawable is already finalized
+  currentdraw.final(mouseX,mouseY);		//finalizes the current drawable
+  drawing=false;											//sets the drawing to false
+  drawables.push(currentdraw);				// pushes the current drawable onto the stack
+  drawsDisplay();											//Updates the drawables shown in the gui
+	if(selected>=0) drawables[selected].selected=false; 	//if a drawable is selected its selected tag is removed
+  selected="new";																				//Selects a new drawable as the selected
   document.getElementById("thingName").text=drawables[selected].name;		//sets the name of the selected drawavle to the text input on the gui
   console.log("stop drawing");
  }
