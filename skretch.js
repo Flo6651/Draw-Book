@@ -14,8 +14,12 @@ var backColor="#FF0000";	//stores the Backgroundcollor
 //Name:		setup()
 //Use:		initialisation function of p5
 function setup() { 					// The Setup function of p5
-  createCanvas(400, 400);		// Creates the Canvas to draw on
-}  
+  createCanvas(document.getElementById("sketch-holder").getBoundingClientRect().width, document.getElementById("sketch-holder").getBoundingClientRect().height).parent('sketch-holder');
+  
+  window.onresize = function(event) {
+    resizeCanvas(document.getElementById("sketch-holder").getBoundingClientRect().width, document.getElementById("sketch-holder").getBoundingClientRect().height);
+ }
+}
 
 /*---------------------------------------------------------------------------------------*/
 //Name:		draw()
@@ -177,7 +181,7 @@ function iNew(){
   drawsDisplay(); //update the select displaying the drawable
 }
 /*------------------------------------------------------------------*/
-//Name:		resize()
+/*//Name:		resize()
 //Use:		called  by one of the size inputs's onChange tag
 //					changes the size of the canvas
 function resize(){
@@ -185,7 +189,7 @@ function resize(){
   var sy=int( document.getElementById("Y").value );		//saves the value of the input "Y" to sy
   resizeCanvas(sx ,sy);			//sets the size of the canvas to sx and sy
   console.log("canvas set to "+sx+":"+sy);
-}
+}*/
 /*-------------------------------------------------------------------------*/
 //Name:		clickcolor()
 //Use:		called by the colorpickers onChange tag
@@ -283,4 +287,5 @@ function colorInvert(ccolor){
   console.log(hue(ccolor))
   return color('hsl('+360-hue(ccolor)+', '+100-saturation(ccolor)+'%, '+100-lightness(ccolor)+'%)')		//returns the inverted color for hsl colorrooom
 }
+
 
