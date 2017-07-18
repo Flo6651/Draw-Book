@@ -53,19 +53,35 @@ function touchStarted() {
       break;	
     case "line":			//drawing a line
       console.log("start line");
-      currentdraw=new Line(createVector(mouseX,mouseY),color(document.getElementById("html5colorpicker").value),document.getElementById("width").value);
+      currentdraw=new Line(
+        		createVector(mouseX,mouseY),		// start position
+        		color(document.getElementById("html5colorpicker").value),	//take the color from the colorpicker
+          	document.getElementById("width").value					//takes the width from the slider
+      );
     	break;
     case "lines":			//drawing Lines
       console.log("start lines");
-      currentdraw=new Lines(createVector(mouseX,mouseY),color(document.getElementById("html5colorpicker").value),document.getElementById("width").value);
+      currentdraw=new Lines(
+        		createVector(mouseX,mouseY),		// start position
+        		color(document.getElementById("html5colorpicker").value),	//take the color from the colorpicker
+          	document.getElementById("width").value					//takes the width from the slider
+      );
       break;
     case "rect":			//drawing a rectangle
       console.log("start rect");
-      currentdraw=new Rect(createVector(mouseX,mouseY),color(document.getElementById("html5colorpicker").value),document.getElementById("width").value);
+      currentdraw=new Rect(
+        		createVector(mouseX,mouseY),		// start position
+        		color(document.getElementById("html5colorpicker").value),	//take the color from the colorpicker
+          	document.getElementById("width").value					//takes the width from the slider
+      );
       break;
     case "ellipse2":	//drawing a ellipse inbetween start and end point
       console.log("start ellipse2");
-      currentdraw=new Ellipse2(createVector(mouseX,mouseY),color(document.getElementById("html5colorpicker").value),document.getElementById("width").value);
+      currentdraw=new Ellipse2(
+        		createVector(mouseX,mouseY),		// start position
+        		color(document.getElementById("html5colorpicker").value),	//take the color from the colorpicker
+          	document.getElementById("width").value					//takes the width from the slider
+      );
       break;
      	}
   }
