@@ -92,15 +92,13 @@ function touchStarted() {
 //Use:		called by p5 when mouse is released or the touchscreen is released
 //					finalizes the object to draw and put it onto the stack
 function touchEnded(){
-  //console.log(currentdraw.isfinal);
-  if(!currentdraw.isfinal){
-  currentdraw.final(mouseX,mouseY);
-  drawing=false;
-  drawables.push(currentdraw);
-  //currentdraw=null;
-  drawsDisplay();
-  selected="new";
-  document.getElementById("thingName").text=drawables[selected].name;
+  if(!currentdraw.isfinal){				// checks if the current drawable is already finalized
+  currentdraw.final(mouseX,mouseY);	//finalizes the current drawable
+  drawing=false;										//sets the drawing to false
+  drawables.push(currentdraw);			// pushes the current drawable onto the stack
+  drawsDisplay();										//Updates the drawables shown in the gui
+  selected="new";										//Selects a new drawable as the selected
+  document.getElementById("thingName").text=drawables[selected].name;		//sets the name of the selected drawavle to the text input on the gui
   console.log("stop drawing");
  }
 }
@@ -110,7 +108,7 @@ function touchEnded(){
 //Use:		called by the circleimage's onClick tag
 //					sets the drawmode to eclipse
 function iEllipse(){
-  mode="ellipse";
+  mode="ellipse";		//sets the drawmode to ellipse
  console.log("Tool changes to "+ mode); 
 }
 /*--------------------------------------------------------------*/
@@ -118,7 +116,7 @@ function iEllipse(){
 //Use:		called  by the second circleimage's onClick tag
 //					sets the drawmode to eclipse2
 function iEllipse2(){
-  mode="ellipse2";
+  mode="ellipse2";		//sets the drawmode to ellipse2
   console.log("Tool changes to "+ mode); 
 }
 /*----------------------------------------------------------------*/
@@ -126,7 +124,7 @@ function iEllipse2(){
 //Use:		called  by the Lineimage's onClick tag
 //					sets the drawmode to line
 function iLine(){
-  mode="line";
+  mode="line";		//sets the drawmode to line
  console.log("Tool changes to "+ mode); 
 }
 /*------------------------------------------------------------------*/
@@ -134,7 +132,7 @@ function iLine(){
 //Use:		called  by the linesimage's onClick tag
 //					sets the drawmode to lines
 function iLines(){
-  mode="lines";
+  mode="lines";		//sets the drawmode to lines
  console.log("Tool changes to "+ mode); 
 }
 /*--------------------------------------------------------------------*/
@@ -142,7 +140,7 @@ function iLines(){
 //Use:		called  by the Rectimage's onClick tag
 //					sets the drawmode to rect
 function iRect(){
-  mode="rect";
+  mode="rect";		//sets the drawmode to rectangle
  console.log("Tool changes to "+ mode); 
 }
 /*-------------------------------------------------------------------*/
@@ -150,7 +148,7 @@ function iRect(){
 //Use:		called  by the Pensilimage's onClick tag
 //					sets the drawmode to pixel
 function iPixel(){
-  mode="pixel";
+  mode="pixel";		//Sets the drawmode to pixel
  console.log("Tool changes to "+ mode); 
 }
 /*------------------------------------------------------------------*/
@@ -158,8 +156,8 @@ function iPixel(){
 //Use:		called  by the Backimage's onClick tag
 //					removes the last drawn object from the stack
 function iBack(){
-  drawables.pop();
-  drawsDisplay(); 
+  drawables.pop();		//removes the latest drawable from the stack
+  drawsDisplay(); 		//updates the select displaying the drawable
   console.log("last action removed");
 }
 /*---------------------------------------------------------------------*/
@@ -167,25 +165,24 @@ function iBack(){
 //Use:		called  by the Saveimages onClick tag
 //					Saves the Canvas as Image
 function iSave(){ 
-  saveCanvas();
+  saveCanvas();		//downloads the canvas as image
 }
 /*--------------------------------------------------------------------------*/
 //Name:		iNew()
 //Use:		called  by the Newimage's onClick tag
 //					clears the stack
 function iNew(){
-  drawables=[];
-  drawsDisplay(); 
+  drawables=[];		//clear the stack
+  drawsDisplay(); //update the select displaying the drawable
 }
 /*------------------------------------------------------------------*/
 //Name:		resize()
 //Use:		called  by one of the size inputs's onChange tag
 //					changes the size of the canvas
 function resize(){
-	var sx=int( document.getElementById("X").value) ;
-  var sy=int( document.getElementById("Y").value );
-  resizeCanvas(sx ,sy);
-  background(220);
+	var sx=int( document.getElementById("X").value) ;		//saves the value of the input "X" to sx 
+  var sy=int( document.getElementById("Y").value );		//saves the value of the input "Y" to sy
+  resizeCanvas(sx ,sy);			//sets the size of the canvas to sx and sy
   console.log("canvas set to "+sx+":"+sy);
 }
 /*-------------------------------------------------------------------------*/
@@ -193,11 +190,10 @@ function resize(){
 //Use:		called by the colorpickers onChange tag
 //					sets the collor of the selected object or background
 function clickColor() {
-    var c;
-        c = document.getElementById("html5colorpicker").value;
-  	if(selected>=0) drawables[selected].color=color(c);
-  console.log("srokem color set to: "+c);
-  	if(selected=="back") backColor= document.getElementById("html5colorpicker").value;
+    var c = document.getElementById("html5colorpicker").value;		//saves the Hex string of the color from the colorpicker
+  	if(selected>=0) drawables[selected].color=color(c);						// if a drawable is selected its color is updated
+  console.log("sroke color set to: "+c);
+  	if(selected=="back") backColor= document.getElementById("html5colorpicker").value;		//if the background is selected its color is updated
   console.log(selected);
 }
  /*---------------------------------------------------------------------------*/
@@ -205,21 +201,19 @@ function clickColor() {
 //Use:		called by the tag range inputs onChange tag
 //					sets the drawmode to eclipse2
 function resizeStroke(){
-  var c=document.getElementById("width").value;
-  if(selected>=0) drawables[selected].width=c;
-  //console.log
+  if(selected>=0) drawables[selected].width=document.getElementById("width").value;  //if a drawable is selected its width is updated 
   }
 /*---------------------------------------------------------------------------*/
 //Name:		drawsDisplay()
 //Use:		updates the list of drawn objects
 function drawsDisplay(){
- 	var out ="";
-  for(var i=0;i<drawables.length;i+=1){
-   out+="<option value='"+i+"'>"+i+":"+drawables[i].name+"</option>";
+ 	var out ="";														//defining out as ""
+  for(var i=0;i<drawables.length;i+=1){		//cycles throu the stack
+   out+="<option value='"+i+"'>"+i+":"+drawables[i].name+"</option>"; 	//for each drawable its id and name is added to the html code
   }
-  out="<option value='back'>background</option>"+out+"<option value='new'> new </option>";
+  out="<option value='back'>background</option>"+out+"<option value='new'> new </option>";		// adding background and new to out
   console.log(out);
-  document.getElementById("things").innerHTML=out;
+  document.getElementById("things").innerHTML=out;		// sets the selects inner html to out
 }
 /*--------------------------------------------------------------------*/
 //Name:		chooseThing()
