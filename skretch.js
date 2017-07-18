@@ -16,9 +16,10 @@ var backColor="#FF0000";	//stores the Backgroundcollor
 function setup() { 					// The Setup function of p5
   createCanvas(document.getElementById("sketch-holder").getBoundingClientRect().width, document.getElementById("sketch-holder").getBoundingClientRect().height).parent('sketch-holder');
   
-  window.onresize = function(event) {
+  window.onresize = function(event) {		//called when window is resized
     resizeCanvas(document.getElementById("sketch-holder").getBoundingClientRect().width, document.getElementById("sketch-holder").getBoundingClientRect().height);
  }
+  drawsDisplay(); //update the select displaying the drawable
 }
 
 /*---------------------------------------------------------------------------------------*/
@@ -287,5 +288,4 @@ function colorInvert(ccolor){
   console.log(hue(ccolor))
   return color('hsl('+360-hue(ccolor)+', '+100-saturation(ccolor)+'%, '+100-lightness(ccolor)+'%)')		//returns the inverted color for hsl colorrooom
 }
-
 
