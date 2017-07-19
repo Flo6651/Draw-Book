@@ -1,6 +1,6 @@
 
 function Line(bbegin,ccolor,wwidth){
-this.width=wwidth;
+	this.width=wwidth;
   this.begin=bbegin;
   this.end=createVector(0,0);
   this.width=wwidth;
@@ -18,7 +18,7 @@ this.width=wwidth;
   this.draw=function(){
     if(this.selected){
       if(this.inverted){
-    		stroke(colorInvert(this.color));
+    		stroke(colorInvert(this.color)); 
         this.inverted=!this.inverted;
       }else{
     		stroke(this.color);
@@ -56,7 +56,6 @@ function Ellipse(bbegin,ccolor,wwidth){
   this.inverted=false;
   
   this.show=function(xx,yy){
-console.log(this.begin+""+this.end);
     fill(color(0,0,0,0));
     stroke(this.color);
     strokeWeight(this.width);
@@ -96,7 +95,6 @@ function Ellipse2(bbegin,ccolor,wwidth){
   this.inverted=false;
   
   this.show=function(xx,yy){
-//console.log(this.begin+""+this.end);
     fill(color(0,0,0,0));
     stroke(this.color);
     strokeWeight(this.width);
@@ -138,7 +136,6 @@ this.width=wwidth;
   this.inverted=false;
   
   this.show=function(xx,yy){
-//console.log(this.begin+""+this.end);
     fill(color(0,0,0,0));
     stroke(this.color);
     strokeWeight(this.width);
@@ -178,8 +175,7 @@ this.width=wwidth;
   this.inverted=false;
   
   this.show=function(xx,yy){
-    //if((createVector(xx,yy).magSq()-(this.pos[this.pos.length-1].magSq()))>50)
-    this.pos.push(createVector(xx,yy));
+     this.pos.push(createVector(xx,yy));
     stroke(this.color);
     strokeWeight(this.width);
      for(var i=1;i<this.pos.length;i++){
