@@ -18,6 +18,7 @@ function setup() { 					// The Setup function of p5
   
   window.onresize = function(event) {		//called when window is resized
     resizeCanvas(document.getElementById("sketch-holder").getBoundingClientRect().width, document.getElementById("sketch-holder").getBoundingClientRect().height);//
+
  }
   drawsDisplay(); //update the select displaying the drawable
 }
