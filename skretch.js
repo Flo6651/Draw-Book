@@ -16,9 +16,10 @@ var backColor="#FF0000";	//stores the Backgroundcollor
 function setup() { 					// The Setup function of p5
   createCanvas(document.getElementById("sketch-holder").getBoundingClientRect().width, document.getElementById("sketch-holder").getBoundingClientRect().height).parent('sketch-holder');
   
-  window.onresize = function(event) {
-    resizeCanvas(document.getElementById("sketch-holder").getBoundingClientRect().width, document.getElementById("sketch-holder").getBoundingClientRect().height);
+  window.onresize = function(event) {		//called when window is resized
+    resizeCanvas(document.getElementById("sketch-holder").getBoundingClientRect().width, document.getElementById("sketch-holder").getBoundingClientRect().height);//
  }
+  drawsDisplay(); //update the select displaying the drawable
 }
 
 /*---------------------------------------------------------------------------------------*/
@@ -103,7 +104,7 @@ function touchEnded(){
   drawsDisplay();											//Updates the drawables shown in the gui
 	if(selected>=0) drawables[selected].selected=false; 	//if a drawable is selected its selected tag is removed
   selected="new";																				//Selects a new drawable as the selected
-  document.getElementById("thingName").value="new";		//sets the name of the selected drawavle to the text input on the gui
+  document.getElementById("drawableName").value="new";		//sets the name of the selected drawavle to the text input on the gui
   console.log("stop drawing");
  }
 }
@@ -218,46 +219,46 @@ function drawsDisplay(){
   }
   out="<option value='back'>background</option>"+out+"<option value='new'> new </option>";		// adding background and new to out
   console.log(out);
-  document.getElementById("things").innerHTML=out;		// sets the selects inner html to out
+  document.getElementById("drawables").innerHTML=out;		// sets the selects inner html to out
 }
 /*--------------------------------------------------------------------*/
-//Name:		chooseThing()
+//Name:		chooseDrawable()
 //Use:		called by the onChange tag from the object diplayer
 //					sets the selected variable and color, Name and width of the GUI
-function chooseThing(){
+function chooseDrawable(){
   if(selected>=0) drawables[selected].selected=false;			//if a drawable is selected its selected tag is removed
-  selected=document.getElementById("things").value;				//selecting the selected element from the <select>
+  selected=document.getElementById("drawables").value;				//selecting the selected element from the <select>
   if(selected>=0){					//if a drawable is selected 
   	document.getElementById("width").disabled=false;		//enables the use of the width slider
-  	document.getElementById("thingName").value=drawables[selected].name;	//sets the <input type=text> to drawables name 
+  	document.getElementById("drawableName").value=drawables[selected].name;	//sets the <input type=text> to drawables name 
   	document.getElementById("width").value=drawables[selected].width;			//sets the <input type=range> to the selected drawables width
     var c="#"+ 			
       intToHex(red(		drawables[selected].color),16,2)+		//converting red of the drawables color to hex
       intToHex(green(	drawables[selected].color),16,2)+		//converting green of the drawables color to hex
       intToHex(blue(	drawables[selected].color),16,2);		//converting blue of the drawables color to hex
     document.getElementById("html5colorpicker").value=c;	//setting the value of the colorpicker to the drawable ones
-    console.log(selected+""+document.getElementById("things").value+" "+c+drawables[selected].color);
+    console.log(selected+""+document.getElementById("drawables").value+" "+c+drawables[selected].color);
   	drawables[selected].selected=true;			//sets the selected flag of the selected drawable
   }else{
     switch(selected){				//switches selected
      case "back":			//if selected is back
       document.getElementById("width").disabled=true;							//disable with slider
-        document.getElementById("thingName").value="background";	//sets the input thingName to background
+        document.getElementById("drawableName").value="background";	//sets the input drawableName to background
      document.getElementById("html5colorpicker").value=backColor;	//sets the colorpicker to teh background color
      break; 
      case "new":		//if selected is new
-        document.getElementById("thingName").value="New";					//sets the input thingName to new
+        document.getElementById("drawableName").value="New";					//sets the input drawableName to new
         document.getElementById("width").disabled=false;					//enables the width slider
        break;
    }
   }
 }
 /*---------------------------------------------------------------------*/
-//Name:		renameThing()
+//Name:		renameTrawable()
 //Use:		called by the onChange tag of the textinput displaying the object name
 //					changes the name of the selected object
-function renameThing(){
-  drawables[selected].name=document.getElementById("thingName").value;		//updates the name of the selected to the enterd into the input thingname
+function renameDrawable(){
+  drawables[selected].name=document.getElementById("drawableName").value;		//updates the name of the selected to the enterd into the input drawablename
   drawsDisplay();		//update the select for the drawables
 }
 /*------------------------------------------------------------------------*/
@@ -287,5 +288,4 @@ function colorInvert(ccolor){
   console.log(hue(ccolor))
   return color('hsl('+360-hue(ccolor)+', '+100-saturation(ccolor)+'%, '+100-lightness(ccolor)+'%)')		//returns the inverted color for hsl colorrooom
 }
-
 
