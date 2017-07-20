@@ -1,4 +1,5 @@
-
+var cDrawable = "Drawable";
+var cLayer="Layer";
 /*------------------------------------------------------------*/
 //Name:		iEllipse()
 //Use:		called by the circleimage's onClick tag
@@ -61,7 +62,8 @@ function iBack(){
 //Use:		called  by the Saveimages onClick tag
 //					Saves the Canvas as Image
 function iSave(){ 
-  saveCanvas();		//downloads the canvas as image
+  //saveCanvas();		//downloads the canvas as image
+  saving=true
 }
 /*--------------------------------------------------------------------------*/
 //Name:		iNew()
@@ -125,7 +127,7 @@ function clickColor() {
   console.log(c+" "+document.getElementById("Alpha").value);
   if(selected>=0) layers[selectedLayer].drawables[selected].color=color(red(c),green(c),blue(c),alpha(layers[selectedLayer].drawables[selected].color));						// if a drawable is selected its color is updated
   console.log("sroke color set to: "+c);
-  if(selected=="back") layers[selectedLayer].bgcolor= color(red(c),green(c),blue(c),alpha(layers[selectedLayer].bgcolor));//,document.getElementById("Alpha").value);		//if the background is selected its color is updated
+  //if(selected=="back") layers[selectedLayer].bgcolor= color(red(c),green(c),blue(c),alpha(layers[selectedLayer].bgcolor));//,document.getElementById("Alpha").value);		//if the background is selected its color is updated
   console.log(selected);
 }
 
@@ -224,3 +226,23 @@ function iRemoveLayer(){
   layersDisplay();
   drawsDisplay();
 }
+/*------------------------------------------------------------------------------------------*/
+//
+//
+//
+function  iToDisplay(id){
+  console.log("id:img"+id);
+	var img=document.getElementById("img"+id);
+  var cla=document.getElementById("cal"+id);
+  switch(cla.className){
+    case "noDisplay":
+      cla.className="dfDisplay";
+      img.src="img/open.png";
+      break;
+    case "dfDisplay":
+      cla.className="noDisplay";
+      img.src="img/close.png";
+      break;
+    }
+}
+
