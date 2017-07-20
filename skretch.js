@@ -16,6 +16,7 @@ var mode="line";			//drawMode (
 var selected="new";				//hold the position of the selected Onject in drawables , back or new
 var selectedLayer=0;
 var backColor="#FF0000";	//stores the Backgroundcollor
+var saving=false;
 
 /*-----------------------------------------------------------------------------------*/  
 //Name:		setup()
@@ -39,16 +40,22 @@ function setup() { 					// The Setup function of p5
 //Name:		draw()
 //Use:		periodically (de:aufgerufene) function for drawing on the canvas
 function draw() { 
-  //canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+  if(saving) {
+    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+  }else{
   drawBackground(20);
-	//background(100);
+  }
+  
   layers.forEach(function(element){	//foreach lopp for drawing each drawable
    element.draw(); 											//draw the current drawable
   }); 
   
   if( drawing)
     currentdraw.show(mouseX,mouseY);		//draws the privew of the current drawable
-
+	if(saving==true){
+  	saveCanvas();
+  	saving=false;
+  }
 }
 /*---------------------------------------------------------------------------*/
 //Name:		mouseInCan()
