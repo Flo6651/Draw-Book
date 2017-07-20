@@ -8,21 +8,36 @@ html, body {
   top: 0;
   left: 0;
   width:100%;
-  height:100px;
+  height:70px;
 }
- 
+
+.noDisplay{
+	display: none;
+}
+
+
+.dfDisplay{
+	display: initial; 
+}
+
+
+.bRect{
+  height: 40px;
+  width: 40px;
+}
+
 .drawables{
   position: absolute;
   right:10px;
   padding: 10px;
   margin-right: 20px;
-  margin-top:100px;
+  margin-top:70px;
   width: 200px;
 }
 
 .can{
  position: absolute;
-  margin-top: 150px;
+  margin-top: 125px;
   margin-right: 50px;
   margin-left:10px;
   height: calc(100% - 150px);
