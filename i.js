@@ -241,8 +241,71 @@ function  iToDisplay(id){
       break;
     case "dfDisplay":
       cla.className="noDisplay";
-      img.src="img/close.png";
+      img.src="img/close.png"; 
       break;
     }
 }
 
+/*------------------------------------------------------------------------------------------*/
+//
+//
+//
+function iRemoveDraw(){
+  console.log("removing "+selected);
+  if(selected>=0){
+ 		layers[selectedLayer].drawables.splice(selected,1);
+		selected="new";
+  drawsDisplay();
+  }
+}
+/*------------------------------------------------------------------------------------------*/
+//
+//
+//
+function iUpDraw(){
+  if(selected>0){
+		var temp=layers[selectedLayer].drawables[selected];
+    layers[selectedLayer].drawables[selected]=layers[selectedLayer].drawables[selected-1];
+    layers[selectedLayer].drawables[selected-1]=temp;
+    selected-=1;
+    drawsDisplay(); 
+  }
+}
+/*------------------------------------------------------------------------------------------*/
+//
+//
+//
+function iDownDraw(){
+  if(selected>=0&selected<(layers[selectedLayer].drawables.length-1)){
+		var temp=layers[selectedLayer].drawables[selected];
+    layers[selectedLayer].drawables[selected]=layers[selectedLayer].drawables[selected+1];
+    layers[selectedLayer].drawables[selected+1]=temp;
+    selected+=1;
+    drawsDisplay();
+  }
+}
+/*------------------------------------------------------------------------------------------*/
+//
+//
+//
+function iUpLayer(){
+  if(selectedLayer>0){
+		var temp=layers[selectedLayer];
+    layers[selectedLayer]=layers[selectedLayer-1];
+    layers[selectedLayer-1]=temp;
+    selectedLayer-=1;
+  }
+}
+/*------------------------------------------------------------------------------------------*/
+//
+//
+//
+function iDownLayer(){
+  if(selectedLayer>=0&selectedLayer<(layers.length-1)){
+		var temp=layers[selectedLayer];
+    layers[selectedLayer]=layers[selectedLayer+1];
+    layers[selectedLayer+1]=temp;
+    selectedLayer+=1;
+  }
+}
+  
