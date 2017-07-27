@@ -1,55 +1,84 @@
-<!DOCTYPE htmlg>
+<!hDOCTYPE html>
 <html> 
   <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
-    <script type="text/javascript" src="relative/path/to/your/p5.dom.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
+   	<script src="J.js"></script>
+   	<script src="drawable.js"></script> 
+   	<script src="Layer.js"></script>
+   	<script src="i.js"></script>
+   	<script src="sketch.js"></script>
+    <title>Draw Book</title>
   </head>
   <body>
       
-   
-    <div class="tools" >
-    <!--<input type="number" id="X" style="width:47%" value="400" onchange="resize()"/>
-    <input type="number" id="Y" style="width:imgLayer47%" value="400" onchange="resize()"/>-->
-    <br>
-    <img class="bRect" src="img/brush.png" onclick="iLines()" /> 
-    <img class="bRect" src="img/pencil.png" onclick="iPixel()" />
-   	<img class="bRect" src="img/rect.png" onclick="iRect()" />
-   	<img class="bRect" src="img/ellipse.png" onclick="iEllipse()" />
-   	<img class="bRect" src="img/ellipse.png" onclick="iEllipse2()" />
-   	<img class="bRect" src="img/line.png" onclick="iLine()" />
-    <img class="bRect" src="img/back.png" onclick="iBack()" />
-    <img class="bRect" src="img/save.png" onclick="iSave()" />
-    <img class="bRect" src="data:image/png;base64,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" onclick="iNew()" />
-    
-    </div><div class="drawables" >
-      <br><a onclick="iToDisplay(cDrawable)" style="cursor:pointer;"><img id="imgDrawable" src="img/close.png" style="width:9px;" /> Drawables</a>
-    <div id="calDrawable" class="noDisplay">
-    <select id="drawables" name="sometext" size="5" style="width: 100%;" onchange="chooseDrawable()" ></select>
-    <br><input id="drawableName" type="text" onchange="renameDrawable()" style="width: 100%;"/>
-    <img  src="img/remove.png" onclick="iRemoveDraw()"/>
-    <img  src="img/up.png" onclick="iUpDraw()"/>
-    <img  src="img/down.png" onclick="iDownDraw()"/> 
-    <input style="width:100%;" type="color" id="html5colorpicker" onchange="clickColor(0, -1, -1, 5)" value="#00FF00" >
-     <input type="range" name="width" onchange="resizeStroke()" id="width" value="10" min="1" max="255" style="width:95%">
-    <input type="range" name="Alpha" onchange="setAlpha()" id="Alpha" value="255" min="1" max="255" style="width:95%">
-    </div>
-    <br><a onclick="iToDisplay(cLayer)" style="cursor:pointer;"><img id="imgLayer" src="img/open.png" style="width:9px;" /> Layers</a>
-    <div id="calLayer" class="dfDisplay">
-    <br><select id="layers" name="sometext" size="5" style="width: 100%;" onchange="chooseLayer()" ></select>
-    <br><input id="layerName" type="text" onchange="renameLayer()" style="width: 100%;"/>
-    <br><img src="img/newLayer.png" onclick="iNewLayer()" />
-    <img id="layerVisible" src="img/showLayer.png" onclick="itVisibleLayer()" />
-    <img  src="img/removeLayer.png" onclick="iRemoveLayer()"/>
-    <img  src="img/upLayer.png" onclick="iUpLayer()"/>
-    <img  src="img/downLayer.png" onclick="iDownLayer()"/>
-    </div></div>
-    <div id="sketch-holder" class="can"></div>
-    <br><script src="drawable.js"></script> 
-    <script src="Layer.js"></script>
-    <script src="i.js"></script>
-    <script src="sketch.js"></script>
+   1
+    <div class="tools" ><!-- div containing all tools and  -->
+    	<!--<input type="number" id="X" style="width:47%" value="400" onchange="resize()"/>
+    	<input type="number" id="Y" style="width:imgLayer47%" value="400" onchange="resize()"/>-->
+    	<br>
+
+    	<img class="bRect" src="img/brush.png" onclick="iLines()" /> <!-- image to hoose the brush tool --> 
+<!--    	<img class="bRect" src="img/pencil.png" onclick="iPixel()" /><!-- image to schoose the pencil tool -->
+   		<img class="bRect" src="img/rect.png" onclick="iRect()" /><!-- image to choose the rectangular tool-->
+   		<img class="bRect" src="img/ellipse.png" onclick="iEllipse()" /><!-- image to schoose the ellipse tool -->
+   		<img class="bRect" src="img/ellipse.png" onclick="iEllipse2()" /><!-- image to choose the ellipse2 tool -->
+   		<img class="bRect" src="img/line.png" onclick="iLine()" /><!-- image to choose the line tool -->
+    	<img class="bRect" src="img/back.png" onclick="iBack()" /><!-- imge to make one stap back -->
+    	<img class="bRect" src="img/save.png" onclick="iSave()" /><!-- image to export current draw -->
+    	<img class="bRect" src="img/save.png" onclick="iExport()" /><!-- image to export current draw -->
+    	<img class="bRect" src="data:image/png;base64,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" onclick="iNew()" /><!-- -->
+    	<input class="bRect" type="file" id="files" name="files[]" />
+    </div><!-- -->
+    <div class="drawables" ><!-- -->
+      <br><!-- -->
+      <a onclick="iToDisplay(cDrawable)" style="cursor:pointer;"><!-- -->
+        <img id="imgDrawable" src="img/open.png" style="width:9px;" /><!-- -->
+        Drawables<!-- -->
+      </a>	<!-- -->
+    	<div id="calDrawable" class="dfDisplay"><!-- -->
+    		<select id="drawables" name="sometext" size="5" style="width: 100%;" onchange="chooseDrawable()" ></select><!-- -->
+    		<br><!-- -->
+        <input id="drawableName" type="text" onchange="renameDrawable()" style="width: 100%;"/><!-- -->
+    		<img  src="img/remove.png" onclick="iRemoveDraw()"/><!-- -->
+    		<img  src="img/up.png" onclick="iUpDraw()"/><!-- -->
+    		<img  src="img/down.png" onclick="iDownDraw()"/><!-- -->
+    		<br><!-- -->
+        <a> Stroke Color</a><!-- -->
+    		<input style="width:100%;" type="color" id="html5colorpicker" onchange="clickColor(0, -1, -1, 5)" value="#00FF00" ><!-- -->
+    		<a> Alpha</a><!-- -->
+    		<input type="range" name="Alpha" onchange="setAlpha()" id="Alpha" value="255" min="1" max="255" style="width:95%"><!-- -->
+    		<a> Stroke width</a><!-- -->
+    		<input type="range" name="width" onchange="resizeStroke()" id="width" value="10" min="1" max="255" style="width:95%"><!-- -->
+    	</div><!-- -->
+    	<br><!-- -->
+      <a onclick="iToDisplay(cLayer)" style="cursor:pointer;"><!-- -->
+        <img id="imgLayer" src="img/open.png" style="width:9px;" /><!-- -->
+        Layers<!-- -->
+      </a><!-- -->
+    	<div id="calLayer" class="dfDisplay"><!-- -->
+    		<br><!-- -->
+        <select id="layers" name="sometext" size="5" style="width: 100%;" onchange="chooseLayer()" ></select><!-- -->
+    		<br><!-- -->
+        <input id="layerName" type="text" onchange="renameLayer()" style="width: 100%;"/><!-- -->
+    		<br><!-- -->
+        <img src="img/newLayer.png" onclick="iNewLayer()" /><!-- -->
+    		<img id="layerVisible" src="img/showLayer.png" onclick="itVisibleLayer()" /><!-- -->
+    		<img  src="img/removeLayer.png" onclick="iRemoveLayer()"/><!-- -->
+    		<img  src="img/upLayer.png" onclick="iUpLayer()"/><!-- -->
+    		<img  src="img/downLayer.png" onclick="iDownLayer()"/><!-- -->
+    	</div><!-- -->
+    	<br><!-- -->
+      <a onclick="iToDisplay(cAdvanced)" style="cursor:pointer;"><!-- -->
+        <img id="imgAdvanced" src="img/close.png" style="width:9px;" /><!-- -->
+        Advanced<!-- -->
+      </a><!-- -->
+    	<div id="calAdvanced" class="noDisplay"><!-- -->
+      </div>
+    </div><!-- -->
+    <div id="sketch-holder" class="can"></div><!-- -->
   </body>
 </html>
+

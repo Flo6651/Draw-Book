@@ -1,14 +1,44 @@
+function JsonFromVector(v){
+  return '{"type":"vector","x":'+v.x+',"y":'+v.y+',"z":'+v.z+'}';
+}
+
+function JsonFromColor(c){
+ return '{"type":"color","r":'+red(c)+',"g":'+green(c)+',"b":'+blue(c)+',"a":'+alpha(c)+'}'; 
+}
+
+function createDrawableFromJson(json){
+ switch(json.type){
+     
+     case "Line":
+     break;
+     
+     case "Ellipse":
+     break;
+		}
+}
 
 function Line(bbegin,ccolor,wwidth){
 	this.width=wwidth;
   this.begin=bbegin;
-  this.end=createVector(0,0);
-  this.width=wwidth;
+  this.end=createVector(0,0); 
   this.color=ccolor;
-  this.name="Line"
+  this.name="Line";
   this.isfinal=false;
   this.selected=false;
   this.inverted=false;
+  
+  this.tojson=function(){
+   return '{"type":"Line",'+
+     '"width":'+this.width+','+
+     '"begin":'+JsonFromVector(this.begin)+','+
+     '"end":'+JsonFromVector(this.end)+','+
+     '"color":'+JsonFromColor(this.color)+','+
+     '"name":"'+this.name+'",'+
+     '"isfinal":'+this.isfinal+','+
+     '"selected":'+this.selected+',"inverted":'+this.inverted+'}'; 
+	var f=7;
+	}
+	
   
   this.show=function(xx,yy){
     stroke(this.color);
@@ -55,6 +85,19 @@ function Ellipse(bbegin,ccolor,wwidth){
   this.selected=false;
   this.inverted=false;
   
+  this.tojson=function(){
+   return '{"type":"Ellipse",'+
+     '"width":'+this.width+','+
+     '"begin":'+JsonFromVector(this.begin)+','+
+     '"end":'+JsonFromVector(this.end)+','+
+     '"color":'+JsonFromColor(this.color)+','+
+     '"name":"'+this.name+'",'+
+     '"isfinal":'+this.isfinal+','+
+     '"selected":'+this.selected+','+
+     '"inverted":'+this.inverted+''+
+  	'}'; 
+  }
+  
   this.show=function(xx,yy){
     fill(color(0,0,0,0));
     stroke(this.color);
@@ -93,6 +136,19 @@ function Ellipse2(bbegin,ccolor,wwidth){
   this.isfinal=false;
   this.selected=false;
   this.inverted=false;
+  
+  this.tojson=function(){
+   return '{"type":"Ellipse2",'+
+    '"width":'+this.width+','+
+     '"begin":'+JsonFromVector(this.begin)+','+
+     '"end":'+JsonFromVector(this.end)+','+
+     '"color":'+JsonFromColor(this.color)+','+
+     '"name":"'+this.name+'",'+
+     '"isfinal":'+this.isfinal+','+
+     '"selected":'+this.selected+','+
+     '"inverted":'+this.inverted+''+
+  	'}'; 
+  }
   
   this.show=function(xx,yy){
     fill(color(0,0,0,0));
@@ -135,6 +191,19 @@ this.width=wwidth;
   this.selected=false;
   this.inverted=false;
   
+  this.tojson=function(){
+   return '{"type":"Rect",'+
+     '"width":'+this.width+','+
+     '"begin":'+JsonFromVector(this.begin)+','+
+     '"end":'+JsonFromVector(this.end)+','+
+     '"color":'+JsonFromColor(this.color)+','+
+     '"name":"'+this.name+'",'+
+     '"isfinal":'+this.isfinal+','+
+     '"selected":'+this.selected+','+
+     '"inverted":'+this.inverted+''+
+  	'}'; 
+  }
+  
   this.show=function(xx,yy){
     fill(color(0,0,0,0));
     stroke(this.color);
@@ -167,15 +236,34 @@ function Lines(bbegin,ccolor,wwidth){
 this.width=wwidth;
   this.pos=[];
   this.pos.push(bbegin);
-  this.width=wwidth;
+  this.width=wwidth; 
   this.color=ccolor;
   this.name="Lines";
   this.isfinal=false;
   this.selected=false;
   this.inverted=false;
+  this.drawable=null;
+  
+  this.tojson=function(){
+   var out= '{"type":"Lines",'+
+     '"width":'+this.width+','+
+     '"pos":[';
+     this.pos.forEach(function(element){	
+ 			  out+=JsonFromVector(element)+',';
+	  	}); 
+     out = out.substring(0, out.length - 1);
+     out+='],"color":'+JsonFromColor(this.color)+','+
+     '"name":"'+this.name+'",'+
+     '"isfinal":'+this.isfinal+','+
+     '"selected":'+this.selected+','+
+     '"inverted":'+this.inverted+''+
+  	'}';
+    return out;
+  } 
   
   this.show=function(xx,yy){
      this.pos.push(createVector(xx,yy));
+
     stroke(this.color);
     strokeWeight(this.width);
      for(var i=1;i<this.pos.length;i++){
@@ -195,9 +283,14 @@ this.width=wwidth;
     	stroke(this.color);
     }
     strokeWeight(this.width);
-     for(var i=1;i<this.pos.length;i++){
-       line(this.pos[i-1].x,this.pos[i-1].y,this.pos[i].x,this.pos[i].y);
+    noFill();
+    beginShape();
+
+     for(var i=0;i<this.pos.length;i++){
+       //line(this.pos[i-1].x,this.pos[i-1].y,this.pos[i].x,this.pos[i].y);
+       curveVertex(this.pos[i].x,this.pos[i].y);
      }
+    endShape();
   }
   this.final=function(xx,yy){
   	this.isfinal=true;

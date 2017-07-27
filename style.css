@@ -3,7 +3,7 @@ html, body {
   padding: 0;
 }
 
-.tools{
+.tools{		/*keeps the top line of buttons*/
   position: absolute;
   top: 0;
   left: 0;
@@ -11,12 +11,12 @@ html, body {
   height:70px;
 }
 
-.noDisplay{
+.noDisplay{		/*hides all elemnts of its class*/
 	display: none;
 }
 
 
-.dfDisplay{
+.dfDisplay{		/*displays all elemnts of its class*/
 	display: initial; 
 }
 
@@ -26,7 +26,7 @@ html, body {
   width: 40px;
 }
 
-.drawables{
+.drawables{		/*contains the rigth sidebar*/
   position: absolute;
   right:10px;
   padding: 10px;
@@ -35,7 +35,7 @@ html, body {
   width: 200px;
 }
 
-.can{
+.can{			/*contains the canvas*/
  position: absolute;
   margin-top: 125px;
   margin-right: 50px;
@@ -44,7 +44,7 @@ html, body {
   width: calc(100% - 270px);
 }
 
-div.can canvas{
+div.can canvas{		/*transform o the canvas*/
     margin: 0;
     position: absolute;
     top: 50%;

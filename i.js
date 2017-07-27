@@ -1,6 +1,6 @@
-
-var cDrawable = "Drawable";
-var cLayer="Layer";
+var cDrawable = "Drawable";		//constant for opening and closing the options
+var cLayer = "Layer";						//constant for opening and closing the options
+var cAdvanced = "Advanced";
 /*------------------------------------------------------------*/
 //Name:		iEllipse()
 //Use:		called by the circleimage's onClick tag
@@ -64,7 +64,7 @@ function iBack(){
 //					Saves the Canvas as Image
 function iSave(){ 
   //saveCanvas();		//downloads the canvas as image
-  saving=true
+  saving=true;			//sets the save flag
 }
 /*--------------------------------------------------------------------------*/
 //Name:		iNew()
@@ -72,19 +72,19 @@ function iSave(){
 //					clears the stack
 function iNew(){
   layers=[];		//clear the stack
-  iNewLayer();
+  iNewLayer("background");		//creats a new Layer
   drawsDisplay(); //update the select displaying the drawable
 }
 /*--------------------------------------------------------------------------*/
 //Name:		iNewLayer()
-//Use:		called  by the Newimage's onClick tag
-//					clears the stack
+//Use:		called  by the NewLayerimage's onClick tag
+//					create a new Layer
 function iNewLayer(){
-  layers.push(new Layer("NewLayer"+layers.length));
-  selectedLayer=layers.length-1;
+  layers.push(new Layer("NewLayer"+layers.length));	//push a new layer to the stack
+  selectedLayer=layers.length-1;	//sets the new layer to active
   layersDisplay(); //update the select displaying the drawable
   console.log("new Layer Created");
-  document.getElementById("layerName").value=layers[selectedLayer].name;
+  document.getElementById("layerName").value=layers[selectedLayer].name;		//displays the name of the created Layer
 }
 /*------------------------------------------------------------------*/
 /*//Name:		resize()
@@ -98,25 +98,26 @@ function resize(){
 }*/
 /*--------------------------------------------------------------------------*/
 //Name:		itVisibleLayer()
-//Use:		called  by the Newimage's onClick tag
-//					clears the stack
+//Use:		called  by the TogelLayerimage's onClick tag
+//					hides or shows a layer
 function itVisibleLayer(){
-  if(layers[selectedLayer].visible==true) {
-    document.getElementById("layerVisible").src="img/hideLayer.png";
-    layers[selectedLayer].visible=false;
+  if(layers[selectedLayer].visible==true) {		//if the layer is visible
+    document.getElementById("layerVisible").src="img/hideLayer.png";	//sets the image to hidden
+    layers[selectedLayer].visible=false;		//hide the layer
   }else{
-    document.getElementById("layerVisible").src="img/showLayer.png";
-    layers[selectedLayer].visible=true;
+    document.getElementById("layerVisible").src="img/showLayer.png";	//sets the image to shown
+    layers[selectedLayer].visible=true;		//shows the layer
   }
 	console.log("visibility of "+layers[selectedLayer].name+" set to "+layers[selectedLayer].visible);
 	}
+
 /*---------------------------------------------------------------------------*/
-//
-//
-//
+//Name:		renameLayer
+//Use:		called ba the onChange event of tha layerName input
+//					
 function renameLayer(){
-  layers[selectedLayer].name=document.getElementById("layerName").value;
-  layersDisplay();
+  layers[selectedLayer].name=document.getElementById("layerName").value; // renames the layer to the layerName inputs value
+  layersDisplay();		//Displays Layer and drawables
   
 }
 /*-------------------------------------------------------------------------*/
@@ -132,10 +133,17 @@ function clickColor() {
   console.log(selected);
 }
 
-
+/*--------------------------------------------------*/
+//Name:		setAlpa()
+//Use:		sets the alpha value of the selected drawable
 function setAlpha(){
-   if(selected>=0) 
-     layers[selectedLayer].drawables[selected].color=color(red(layers[selectedLayer].drawables[selected].color),green(layers[selectedLayer].drawables[selected].color),blue(layers[selectedLayer].drawables[selected].color), parseInt(document.getElementById("Alpha").value));						// if a drawable is selected its color is updated
+   if(selected>=0) // if a drawable is selected
+     layers[selectedLayer].drawables[selected].color=
+       color(
+         red(layers[selectedLayer].drawables[selected].color),
+         green(layers[selectedLayer].drawables[selected].color),
+         blue(layers[selectedLayer].drawables[selected].color), 
+        parseInt(document.getElementById("Alpha").value));						// if a drawable is selected its Alpha is updated
 
   if(selected=="back") 
     layers[selectedLayer].bgcolor= color(red(layers[selectedLayer].bgcolor),green(layers[selectedLayer].bgcolor),blue(layers[selectedLayer].bgcolor),parseInt(document.getElementById("Alpha").value));		//if the background is selected its color is updated  
@@ -153,40 +161,7 @@ function resizeStroke(){
 //Use:		called by the onChange tag from the object diplayer
 //					sets the selected variable and color, Name and width of the GUI
 function chooseDrawable(){
-  if(selected>=0) layers[selectedLayer].drawables[selected].selected=false;			//if a drawable is selected its selected tag is removed
-  selected=document.getElementById("drawables").value;				//selecting the selected element from the <select>
-  if(selected>=0){					//if a drawable is selected 
-  	document.getElementById("width").disabled=false;		//enables the use of the width slider
-  	document.getElementById("drawableName").value=layers[selectedLayer].drawables[selected].name;	//sets the <input type=text> to drawables name 
-  	document.getElementById("width").value=layers[selectedLayer].drawables[selected].width;			//sets the <input type=range> to the selected drawables width
-    var c="#"+ 			
-      intToHex(red(		layers[selectedLayer].drawables[selected].color),16,2)+		//converting red of the drawables color to hex
-      intToHex(green(	layers[selectedLayer].drawables[selected].color),16,2)+		//converting green of the drawables color to hex
-      intToHex(blue(	layers[selectedLayer].drawables[selected].color),16,2);		//converting blue of the drawables color to hex
-    document.getElementById("html5colorpicker").value=c;	//setting the value of the colorpicker to the drawable ones
-    document.getElementById("Alpha").value=alpha(layers[selectedLayer].drawables[selected].color);
-    console.log(selected+""+document.getElementById("drawables").value+" "+c+layers[selectedLayer].drawables[selected].color);
-  	layers[selectedLayer].drawables[selected].selected=true;			//sets the selected flag of the selected drawable
-  }else{
-    switch(selected){				//switches selected
-     case "back":			//if selected is back
-      document.getElementById("width").disabled=true;							//disable with slider
-        document.getElementById("drawableName").value="background";	//sets the input drawableName to background
-     //document.getElementById("html5colorpicker").value=layers[selectedLayer].bgcolor;	//sets the colorpicker to teh background color
-     var d="#"+ 			
-      intToHex(red(		layers[selectedLayer].bgcolor),16,2)+		//converting red of the drawables color to hex
-      intToHex(green(	layers[selectedLayer].bgcolor),16,2)+		//converting green of the drawables color to hex
-      intToHex(blue(	layers[selectedLayer].gbcolor),16,2);		//converting blue of the drawables color to hex
-    	document.getElementById("html5colorpicker").value=d;	//setting the value of the colorpicker to the drawable ones
-    	document.getElementById("Alpha").value=alpha(layers[selectedLayer].bgcolor);
-    
-    	break;  
-     case "new":		//if selected is new
-        document.getElementById("drawableName").value="New";					//sets the input drawableName to new
-        document.getElementById("width").disabled=false;					//enables the width slider
-       break;
-   }
-  }
+  selectDrawable(document.getElementById("drawables").value); 
 }
 /*--------------------------------------------------------------------*/
 //Name:		chooseLayer()
@@ -194,17 +169,17 @@ function chooseDrawable(){
 //					sets the selected variable and color, Name and width of the GUI
 function chooseLayer(){
   
-  if(selected>=0) layers[selectedLayer].drawables[selected].selected=false;			//if a drawable is selected its selected tag is removed
-  selected="new"
-  selectedLayer=document.getElementById("layers").value;
-  if(layers[selectedLayer].visible==false) {
-    document.getElementById("layerVisible").src="img/hideLayer.png";
+  //if(selected>=0) layers[selectedLayer].drawables[selected].selected=false;			//if a layer is selected its selected tag is removed
+  selected="new";		//selects the drawale new
+  selectedLayer=document.getElementById("layers").value;		//selects the Layer from teh layerselects value
+  if(layers[selectedLayer].visible==false) {		//if the layer is hidden 
+    document.getElementById("layerVisible").src="img/hideLayer.png";		//sets the image to hidden
   }else{
-    document.getElementById("layerVisible").src="img/showLayer.png";
+    document.getElementById("layerVisible").src="img/showLayer.png";		//sets the image to shown
   }
-  drawsDisplay();
+  drawsDisplay();		//updates the draws displayed
   console.log("current Layer is set to: " +layers[selectedLayer].name);
-  document.getElementById("layerName").value=layers[selectedLayer].name;
+  document.getElementById("layerName").value=layers[selectedLayer].name;		//displays the name of the the Layer
 }	
 /*---------------------------------------------------------------------*/
 //Name:		renameTrawable()
@@ -217,78 +192,81 @@ function renameDrawable(){
 
 /*---------------------------------------------------------------------*/
 //Name:		iRemoveLayer()
-//Use:		called by the onChange tag of the textinput displaying the object name
-//					changes the name of the selected object
+//Use:		called by the onClick event of the Layer remove image
+//					removes the current layer
 function iRemoveLayer(){
   console.log("remove Layer "+layers[selectedLayer].name);
-  layers.splice(selectedLayer,1);
-  selectedLayer=0; 
-  if(layers.length<1) iNewLayer();
-  layersDisplay();
-  drawsDisplay();
+  layers.splice(selectedLayer,1);	//removes the current layer
+  selectedLayer=0; 		//selects layer 0
+  if(layers.length<1) iNewLayer();	// if no layer is left a new is created
+  layersDisplay();		//update Layers and draws display
 }
 /*------------------------------------------------------------------------------------------*/
-//
-//
-//
+//Name:		iToDisplay(id)
+//Use:		called from the <a>s onClick event of the obtion
+//Param:	id:	the id of the obtion to toggle
 function  iToDisplay(id){
   console.log("id:img"+id);
-	var img=document.getElementById("img"+id);
-  var cla=document.getElementById("cal"+id);
-  switch(cla.className){
-    case "noDisplay":
-      cla.className="dfDisplay";
-      img.src="img/open.png";
+	var img=document.getElementById("img"+id);	//loads the image of the obtion
+  var cla=document.getElementById("cal"+id);	//loads the div of the obtion
+  switch(cla.className){			
+    case "noDisplay":		//if not displayed
+      cla.className="dfDisplay";		//display the div
+      img.src="img/open.png";			//set the image to open
       break;
-    case "dfDisplay":
-      cla.className="noDisplay";
-      img.src="img/close.png"; 
+    case "dfDisplay":		//if displayd
+      cla.className="noDisplay";		//hides the div
+      img.src="img/close.png"; 		//sets the image to close
       break;
     }
 }
 
 /*------------------------------------------------------------------------------------------*/
-//
-//
-//
+//Name:		iRemoveDraw()
+//Use:		called by the onClick event from the remove Drawable object image
+//					removes teh current drawable 
 function iRemoveDraw(){
   console.log("removing "+selected);
-  if(selected>=0){
- 		layers[selectedLayer].drawables.splice(selected,1);
-		selected="new";
-  drawsDisplay();
+  if(selected>=0){			//if a drawable is selected
+ 		layers[selectedLayer].drawables.splice(selected,1);		//remove the specific drawable
+		selected="new";			//set theselected drawable to "new"
+  drawsDisplay();				//updates the displayment of drawables
   }
-}
+} 
 /*------------------------------------------------------------------------------------------*/
-//
-//
-//
+//Name:		iUpDraw()
+//Use:		
+//					moves the crrent drawabel one position up
 function iUpDraw(){
-  if(selected>0){
-		var temp=layers[selectedLayer].drawables[selected];
-    layers[selectedLayer].drawables[selected]=layers[selectedLayer].drawables[selected-1];
-    layers[selectedLayer].drawables[selected-1]=temp;
-    selected-=1;
-    drawsDisplay(); 
-  }
-}
-/*------------------------------------------------------------------------------------------*/
-//
-//
-//
-function iDownDraw(){
   if(selected>=0&selected<(layers[selectedLayer].drawables.length-1)){
 		var temp=layers[selectedLayer].drawables[selected];
     layers[selectedLayer].drawables[selected]=layers[selectedLayer].drawables[selected+1];
     layers[selectedLayer].drawables[selected+1]=temp;
     selected+=1;
+    
+    console.log(layers[selectedLayer].drawables[0].name);
+  
+    drawsDisplay(); 
+
+  } 
+}
+/*------------------------------------------------------------------------------------------*/
+//Name:		iDownDraw()
+//Use:		
+//					moves the drawable one position down 
+function iDownDraw(){
+  if(selected>0){
+		var temp=layers[selectedLayer].drawables[selected];
+    layers[selectedLayer].drawables[selected]=layers[selectedLayer].drawables[selected-1];
+    layers[selectedLayer].drawables[selected-1]=temp;
+    selected-=1;
     drawsDisplay();
   }
 }
 /*------------------------------------------------------------------------------------------*/
-//
-//
-//
+//Name:		iUpLayer()
+//Use:		
+//					moves the selected layer one position up
 function iUpLayer(){
   if(selectedLayer>0){
 		var temp=layers[selectedLayer];
@@ -298,9 +276,9 @@ function iUpLayer(){
   }
 }
 /*------------------------------------------------------------------------------------------*/
-//
-//
-//
+//Name:		iDownLayer()
+//Use:		
+//					moves the selected layer one position down
 function iDownLayer(){
   if(selectedLayer>=0&selectedLayer<(layers.length-1)){
 		var temp=layers[selectedLayer];
@@ -309,3 +287,26 @@ function iDownLayer(){
     selectedLayer+=1;
   }
 }
+
+
+
+function handleFileSelect(evt) {
+  var files = evt.target.files;
+  var reader = new FileReader();
+  reader.onloadend = function(evt) {
+      if (evt.target.readyState == FileReader.DONE) { // DONE == 2
+
+        console.log("g");
+
+
+
+
+        fromjson(reader.result);
+      }
+    };
+
+  			reader.readAsText(files[0]);
+  
+}
+
+  
