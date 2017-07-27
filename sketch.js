@@ -49,7 +49,7 @@ function draw() {
   if(saving) {		//if the saving flag is set
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);	//cleaer the canvas
   }else{
-  drawBackground(20);		//draw tha background with blocksize of 20px
+  drawBackground(20,100,200);		//draw tha background with blocksize of 20px
   }
   
   layers.forEach(function(element){	//foreach lopp for drawing each drawable
