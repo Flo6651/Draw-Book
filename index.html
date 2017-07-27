@@ -9,23 +9,24 @@
    	<script src="drawable.js"></script> 
    	<script src="Layer.js"></script>
    	<script src="i.js"></script>
+   	<script src="api.js"></script>
    	<script src="sketch.js"></script>
     <title>Draw Book</title>
   </head>
   <body>
       
-   1
+  
     <div class="tools" ><!-- div containing all tools and  -->
     	<!--<input type="number" id="X" style="width:47%" value="400" onchange="resize()"/>
     	<input type="number" id="Y" style="width:imgLayer47%" value="400" onchange="resize()"/>-->
     	<br>
 
-    	<img class="bRect" src="img/brush.png" onclick="iLines()" /> <!-- image to hoose the brush tool --> 
+    	<img class="bRect" src="img/brush.png" onclick="api.tool(api.tool_Brush)" /> <!-- image to hoose the brush tool --> 
 <!--    	<img class="bRect" src="img/pencil.png" onclick="iPixel()" /><!-- image to schoose the pencil tool -->
-   		<img class="bRect" src="img/rect.png" onclick="iRect()" /><!-- image to choose the rectangular tool-->
-   		<img class="bRect" src="img/ellipse.png" onclick="iEllipse()" /><!-- image to schoose the ellipse tool -->
-   		<img class="bRect" src="img/ellipse.png" onclick="iEllipse2()" /><!-- image to choose the ellipse2 tool -->
-   		<img class="bRect" src="img/line.png" onclick="iLine()" /><!-- image to choose the line tool -->
+   		<img class="bRect" src="img/rect.png" onclick="api.tool(api.tool_Rect)" /><!-- image to choose the rectangular tool-->
+   		<img class="bRect" src="img/ellipse.png" onclick="api.tool(api.tool_Ellipse)" /><!-- image to schoose the ellipse tool -->
+   		<img class="bRect" src="img/ellipse.png" onclick="api.tool(api.tool_Ellipse2)" /><!-- image to choose the ellipse2 tool -->
+   		<img class="bRect" src="img/line.png" onclick="api.tool(api.tool_Line)" /><!-- image to choose the line tool -->
     	<img class="bRect" src="img/back.png" onclick="iBack()" /><!-- imge to make one stap back -->
     	<img class="bRect" src="img/save.png" onclick="iSave()" /><!-- image to export current draw -->
     	<img class="bRect" src="img/save.png" onclick="iExport()" /><!-- image to export current draw -->

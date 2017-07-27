@@ -2,6 +2,14 @@
 <a href="data:application/octet-stream;foo=bar,DATA">text file</a><br/>
 http://coderstoolbox.net/string/#!encoding=xml&action=encode&charset=us_ascii
 */
+/*
+var drawer=function(sketch){
+	this.setup=function(){}
+	this.draw=function(){}
+}
+
+var myp5=new p5(drawer);*/
+
 var canvas;						//stores the html5 canvas object for clearign the background for save
 var drawing=false;		//true while mouse is pressed over the canvas
 //var drawables=[];			//array of objects to draw
@@ -226,9 +234,9 @@ function colorInvert(ccolor){
 //Parm:		rsize:	teh size of teh blocks
 //				c1:	color of haf blocks
 //				c2:	color of the other haf blocks
-function drawBackground(rsize,c1,c2){
-	c1 =200;
-	c2=100;
+function drawBackground(rsize,c1=100,c2=200){
+//	c1 =200;
+	//c2=100;
   noStroke();	//disables the stroke
   for(var x=0; x<width;x+=rsize){		//cycles through the width
    for(var y=0;y<height;y+=rsize){	// cycles through the heigh
