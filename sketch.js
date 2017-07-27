@@ -227,8 +227,8 @@ function colorInvert(ccolor){
 //				c1:	color of haf blocks
 //				c2:	color of the other haf blocks
 function drawBackground(rsize,c1,c2){
-	if(c1=null) c1 =200;
-	if(c2=null) c2=100;
+	c1 =200;
+	c2=100;
   noStroke();	//disables the stroke
   for(var x=0; x<width;x+=rsize){		//cycles through the width
    for(var y=0;y<height;y+=rsize){	// cycles through the heigh
