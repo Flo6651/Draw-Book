@@ -13,6 +13,7 @@ var myp5=new p5(drawer);*/
 var canvas;						//stores the html5 canvas object for clearign the background for save
 var drawing=false;		//true while mouse is pressed over the canvas
 //var drawables=[];			//array of objects to draw
+var name="";
 var layers=[];					//Layer Stack
 var currentdraw=null;		//the object currently drawn
 var mode="line";			//drawMode (
@@ -69,10 +70,10 @@ function draw() {
     currentdraw.show(mouseX,mouseY);		//draws the privew of the current drawable
   if(saving==true){						//if save flag is setsaveCanvas();							//save canvas as image
   	saving=false;							//clear save flag
-    saveAs("data:application/octet-stream;foo=bar,"+encodeURI(tojson()),"img.drb"); 
+    saveAs("data:application/octet-stream;foo=bar,"+encodeURI(tojson()),name+".drb"); 
   }
   if(fexport){
-	saveCanvas("img","png");
+	saveCanvas(name,"png");
 	fexport=false;
   }
 }
@@ -300,6 +301,7 @@ function selectDrawable(id){
 
 function tojson(){ 
    var out= '{"type":"img",'+
+	 '"name":"'+this.name+'",'+
      '"selected":"'+this.selected+'",'+
      '"selectedLayer":'+this.selectedLayer+','+
      '"layers":[';
@@ -315,9 +317,11 @@ function tojson(){
 function fromjson(json){
 	var img=JSON.parse(json);
   layers=[];
+  name=img.name
   selected=img.selected;
   selectedLayer=img.selectedLayer;
   mode=img.mode;
+  document.getElementById("Name").value=name;
   img.layers.forEach(function(element){
     var templayer=new Layer(element.name);
     templayer.visible=element.visible;

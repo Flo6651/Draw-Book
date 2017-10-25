@@ -190,6 +190,11 @@ function renameDrawable(){
   drawsDisplay();		//update the select for the drawables
 }
 
+
+function rename(v){
+	name=v;
+}
+
 /*---------------------------------------------------------------------*/
 //Name:		iRemoveLayer()
 //Use:		called by the onClick event of the Layer remove image
