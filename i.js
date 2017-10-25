@@ -74,6 +74,8 @@ function iNew(){
   layers=[];		//clear the stack
   iNewLayer("background");		//creats a new Layer
   drawsDisplay(); //update the select displaying the drawable
+  name="New Drawing";
+  document.getElementById("Name").value="New Drawing";
 }
 /*--------------------------------------------------------------------------*/
 //Name:		iNewLayer()

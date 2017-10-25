@@ -13,7 +13,7 @@ var myp5=new p5(drawer);*/
 var canvas;						//stores the html5 canvas object for clearign the background for save
 var drawing=false;		//true while mouse is pressed over the canvas
 //var drawables=[];			//array of objects to draw
-var name="";
+var name="New Drawing"; 
 var layers=[];					//Layer Stack
 var currentdraw=null;		//the object currently drawn
 var mode="line";			//drawMode (
@@ -87,8 +87,9 @@ function mouseInCan(){
 //Name:		touchStarted()
 //UsE:		Function called by p5 when the mouse gets pressed or the touchscreen touch begins.
 //					Creates a new object to draw according to the drawmode
-function touchStarted() {
-  if(mouseInCan()){			//if the mouse is inside the canvas
+function touchStarted(evt) {
+console.log(evt.button);
+  if(mouseInCan()&&evt.button==0){			//if the mouse is inside the canvas
     drawing=true;				//drawing is enabled
   switch(mode){					//diferentiate the drawmodes
     case "ellipse":		 	//drawing an ecipse with the beginning in the center
@@ -96,7 +97,7 @@ function touchStarted() {
       currentdraw=new Ellipse(		//creating a new Ellipse
         		createVector(mouseX,mouseY),		// start position
         		color(
-              	red(color(document.getElementById("html5colorpicker").value)),
+              	red(color(document.getElementById("html5colorpicker").value)), 
               	green(color(document.getElementById("html5colorpicker").value)),
                 blue(color(document.getElementById("html5colorpicker").value)),
                 parseInt(document.getElementById("Alpha").value)),	//take the color from the colorpicker

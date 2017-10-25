@@ -33,7 +33,7 @@
     	<img class="bRect" src="img/void.svg" onclick="iNew()" /><!-- -->
 		<img class="bRect" src="img/open.svg" onclick="document.getElementById('files').click();" /><!-- -->
 		<div style="height:0px;overflow:hidden"><input class="bRect" style="background-image:url('img/open.svg')" type="file" id="files" name="files[]" accept=".drb,*"/> </div>
-		<a>Name:</a><input id="Name" type="text" onchange="rename(this.value)" /><!-- -->
+		<a>Name:</a><input id="Name" type="text" onchange="rename(this.value)" value="New Drawing" /><!-- -->
     	
 	</div><!-- -->
     <div class="drawables" ><!-- -->
@@ -82,7 +82,7 @@
     	<div id="calAdvanced" class="noDisplay"><!-- -->
       </div>
     </div><!-- -->
-    <div id="sketch-holder" class="can"></div><!-- -->
+    <div id="sketch-holder"  oncontextmenu="return false"class="can"></div><!-- -->
   </body>
 </html>
 
