@@ -1,5 +1,6 @@
 # Draw-Book
-Drawbook is a Brouser based Drawing programm wich can draw simple shapes like rectangles, Ellipeses, Lines, and freehand drawings. Each shapes Color, Opacity, stroke size and name can be adjustet after drawing.
-Draw-Book also features Layers. Each layer can be renaimed. Layers can be hidden and shown.
+Draw-Book is a bad performing browser based drawing programm which can draw simple shapes like rectangles, ellipeses, lines, and freehand drawings. Each shapes color, opacity, stroke size and name can be adjustet after drawing.
+Draw-Book also features layers. Each layer can be renaimed. Layers can be hidden and shown.
 
-A demo can be found her https://draw-book.diy-tec.ml
+
+Draw-Book emerged from me playing with p5.js
